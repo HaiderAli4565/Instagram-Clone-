@@ -6,11 +6,19 @@ const POST = mongoose.model("POST")
 
 
 //Route
+router.get("/allposts", requireLogin, (req, res) => {
+    POST.find()
+    .populate("postedBy","_id name")
+        .then(posts => res.json(posts))
+        .catch(err => console.log(err))
+})
+
+
 router.post("/createPost", requireLogin, (req, res) => {
     const { body, pic } = req.body;
     console.log(pic)
     if (!body || !pic) {
-        return res.status(422).json({ error : "please add all the fields" })
+        return res.status(422).json({ error: "please add all the fields" })
     }
     console.log(req.user)
     const post = new POST({
