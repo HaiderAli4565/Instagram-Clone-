@@ -1,4 +1,4 @@
-.card{
+.card {
     max-width: 500px;
     height: max-content;
     margin: 25px auto;
@@ -6,16 +6,16 @@
     border-radius: 5px;
 }
 
-.card-header{
+.card-header {
     display: flex;
 }
 
-.card-header > h5{
+.card-header>h5 {
     margin: 0;
     padding: 11px;
 }
 
-.card-pic img{
+.card-pic img {
     width: 30px;
     border-radius: 30px;
     height: auto;
@@ -23,33 +23,46 @@
     padding: 5px;
 }
 
-.card-image img{
+.card-image img {
     width: 100%;
 }
 
-.card-content{
+.card-content {
     text-align: left;
     line-height: 4px;
     padding: 3px 10px;
     border-bottom: 1px solid rgb(173, 173, 173);
 }
 
-.add-comment{
+.add-comment {
     display: flex;
     align-items: center;
 
 }
-.add-comment input{
+
+.add-comment input {
     margin: 0;
     outline: none;
     border: none;
     padding: 10px;
 }
 
-.comment{
+.comment {
     border: none;
     background-color: none;
     font-weight: bolder;
     cursor: pointer;
     color: #339ce3;
+}
+
+.material-symbols-outlined-red {
+    color: red;
+    font-variation-settings:
+        'FILL' 1,
+        'wght' 700,
+        'GRAD' 0,
+        'opsz' 24
+}
+.material-symbols-outlined{
+    cursor: pointer;
 }

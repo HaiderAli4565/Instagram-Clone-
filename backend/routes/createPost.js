@@ -8,6 +8,7 @@ const POST = mongoose.model("POST")
 //Route
 router.get("/allposts", requireLogin, (req, res) => {
     POST.find()
+        .populate("postedBy", "_id name Photo")
         .populate("postedBy", "_id name")
         .then(posts => res.json(posts))
         .catch(err => console.log(err))
@@ -40,5 +41,63 @@ router.get("/myposts", requireLogin, (req, res) => {
 
 })
 
+router.put("/like", requireLogin, (req, res) => {
+    POST.findByIdAndUpdate(req.body.postId, {
+        $push: { likes: req.user._id }
+    }, {
+        new: true
+    }).populate("postedBy", "_id name Photo")
+        .then((result) => {
+            if (!result) {
+                return res.status(422).json({ error: "No post found with the given ID" });
+            }
+            res.json(result);
+        })
+        .catch((err) => {
+            res.status(422).json({ error: err.message || "An error occurred while processing your request" });
+        });
+});
+
+
+router.put("/unlike", requireLogin, (req, res) => {
+    POST.findByIdAndUpdate(req.body.postId, {
+        $pull: { likes: req.user._id }
+    }, {
+        new: true
+    }).populate("postedBy", "_id name Photo")
+        .then((result) => {
+            if (!result) {
+                return res.status(422).json({ error: "No post found with the given ID" });
+            }
+            res.json(result);
+        })
+        .catch((err) => {
+            res.status(422).json({ error: err.message || "An error occurred while processing your request" });
+        });
+});
+
+
+router.put("/comment", requireLogin, (req, res) => {
+    const comment = {
+        comment: req.body.text,
+        postedBy: req.user._id
+    }
+    POST.findByIdAndUpdate(
+        req.body.postId,
+        { $push: { comments: comment } },
+        { new: true }
+      )
+        .populate("comments.postedBy", "_id name")
+        .then((result) => {
+          if (!result) {
+            return res.status(422).json({ error: "No post found with the given ID" });
+          }
+          res.json(result);
+        })
+        .catch((err) => {
+          res.status(422).json({ error: err });
+        });
+      
+})
 
 module.exports = router

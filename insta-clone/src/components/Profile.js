@@ -25,7 +25,7 @@ export default function Profile() {
                 </div>
                 {/*Profile data*/}
                 <div className="profile-data">
-                    <h1>Esha Eman</h1>
+                    <h1>{JSON.parse(localStorage.getItem("user")).name}</h1>
                     <div className="profile-info" style={{ display: "flex" }}>
                         <p> 10 posts</p>
                         <p> 10 followers</p>
