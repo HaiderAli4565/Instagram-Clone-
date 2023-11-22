@@ -9,6 +9,7 @@ const POST = mongoose.model("POST")
 router.get("/allposts", requireLogin, (req, res) => {
     POST.find()
         .populate("postedBy", "_id name Photo")
+        .populate("comments.postedBy", "_id name")
         .populate("postedBy", "_id name")
         .then(posts => res.json(posts))
         .catch(err => console.log(err))
@@ -88,6 +89,7 @@ router.put("/comment", requireLogin, (req, res) => {
         { new: true }
       )
         .populate("comments.postedBy", "_id name")
+        .populate("postedBy" , "_id name")
         .then((result) => {
           if (!result) {
             return res.status(422).json({ error: "No post found with the given ID" });
@@ -100,4 +102,3 @@ router.put("/comment", requireLogin, (req, res) => {
       
 })
 
-module.exports = router
