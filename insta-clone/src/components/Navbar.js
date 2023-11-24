@@ -19,6 +19,7 @@ export default function Navbar({ login }) {
           <Link to="/createPost">
             Create Post
           </Link>
+          <Link style={{marginLeft:"20px"}} to = "/followingpost">My Followng</Link>
           <Link to={""}>
             <button className="primaryBtn" onClick={() => { setModalOpen(true) }}>Log Out</button>
           </Link>
