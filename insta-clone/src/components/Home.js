@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import './Home.css';
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 export default function Home() {
@@ -10,9 +10,9 @@ export default function Home() {
   const [show, setShow] = useState(false)
   const [item, setItem] = useState([])
 
-   // Toast functions
-   const notifyA = (msg) => toast.error(msg);
-   const notifyB = (msg) => toast.success(msg);
+  // Toast functions
+  const notifyA = (msg) => toast.error(msg);
+  const notifyB = (msg) => toast.success(msg);
 
   useEffect(() => {
 
@@ -131,7 +131,11 @@ export default function Home() {
               <div className="card-pic">
                 <img src="https://images.unsplash.com/photo-1621342261924-3e2f6c9603f5?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8c3F1YXJlJTIwaW1hZ2V8ZW58MHx8MHx8fDA%3D" alt="" />
               </div>
-              <h5> {posts.postedBy.name}</h5>
+              <h5>
+                <Link to={`/profile/${posts.postedBy._id}`}>
+                  {posts.postedBy.name}
+                </Link>
+              </h5>
             </div>
             {/*card image*/}
             <div className="card-image">
@@ -218,7 +222,7 @@ export default function Home() {
                   mood
                 </span>
                 <input type="text" placeholder="Add a comment" value={comment} onChange={(e) => { setComment(e.target.value) }} />
-                <button className="comment" onClick={()=>{makeComment(comment,item._id); toggleComment();}}>Post</button>
+                <button className="comment" onClick={() => { makeComment(comment, item._id); toggleComment(); }}>Post</button>
               </div>
             </div>
           </div>
