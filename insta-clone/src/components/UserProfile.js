@@ -5,9 +5,49 @@ import { useParams } from "react-router-dom";
 
 
 export default function UserProfile() {
-    const {userid} = useParams()
-    const[user, setUser] = useState("")
+    const { userid } = useParams()
+    const [isFollow, setIsFollow] = useState(false)
+    const [user, setUser] = useState("")
     const [posts, setPosts] = useState([])
+
+    // to follow user
+    const followUser = (userid) => {
+        fetch("http://localhost:5000/follow", {
+            method: "put",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + localStorage.getItem("jwt")
+            },
+            body: JSON.stringify({
+                followId: userid
+            })
+        }).then(res => res.json())
+            .then((data) => {
+                console.log(data);
+                setIsFollow(true)
+            })
+
+    }
+
+    // to unfollow user
+    const UnfollowUser = (userid) => {
+        fetch("http://localhost:5000/unfollow", {
+            method: "put",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + localStorage.getItem("jwt")
+            },
+            body: JSON.stringify({
+                followId: userid
+            })
+        }).then(res => res.json())
+            .then((data) => {
+                console.log(data)
+                setIsFollow(false)
+            })
+
+    }
+
 
 
 
@@ -22,8 +62,12 @@ export default function UserProfile() {
                 console.log(result)
                 setUser(result.user)
                 setPosts(result.post)
+                if (result.user.followers.includes
+                    (JSON.parse(localStorage.getItem("user"))._id)) {
+                    setIsFollow(true)
+                }
             })
-    }, [])
+    }, [isFollow])
     return (
         <div className="profile">
             {/*Profile frame*/}
@@ -34,11 +78,25 @@ export default function UserProfile() {
                 </div>
                 {/*Profile data*/}
                 <div className="profile-data">
-                    <h1>{user.name}</h1>
+                    <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                        <h1>{user.name}</h1>
+
+                        <button className="followBtn"
+                            onClick={() => {
+                                if (isFollow) {
+                                    UnfollowUser(user._id)
+                                } else {
+                                    followUser(user._id)
+                                }
+
+                            }}>
+                            {isFollow ? "unfollow" : "Follow"}
+                        </button>
+                    </div>
                     <div className="profile-info" style={{ display: "flex" }}>
                         <p> {posts.length} posts</p>
-                        <p> 10 followers</p>
-                        <p> 10 followings</p>
+                        <p> {user.followers ? user.followers.length : "0"} followers</p>
+                        <p> {user.following ? user.following.length : "0"} followings</p>
                     </div>
                 </div>
             </div>
