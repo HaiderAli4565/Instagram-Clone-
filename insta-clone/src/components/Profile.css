@@ -60,3 +60,22 @@
     transform: translateY(-5px);
     box-shadow: 0 10px 20px -10px #0115eb;
 }
+
+.changePic{
+    background-color: #fff;
+    border-radius: 30px;
+}
+
+.changePic div{
+    padding: 15px 80px;
+    border-top: 1px solid #00000030 
+}
+
+.upload-btn{
+    cursor: pointer;
+    background: none;
+    border: none;
+    font-weight: bolder;
+    font-size: 15px;
+
+}

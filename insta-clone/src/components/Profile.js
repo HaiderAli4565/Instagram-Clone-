@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from "react";
 import "./Profile.css";
 import PostDetail from "./PostDetail"
+import ProfilePic from "./ProfilePic";
 
 export default function Profile() {
+    var picLink = "https://cdn-icons-png.flaticon.com/128/847/847969.png"
     const [pic, setPic] = useState([]);
     const [show, setShow] = useState(false);
     const [posts, setPosts] = useState([])
+    const [user,setUser] = useState("")
+    const [changePic, setChangePic] = useState(false) //Change Profile Pic
 
     const toggleDetails = (posts) => {
         if (show) {
@@ -16,17 +20,27 @@ export default function Profile() {
         }
     };
 
+    const changeProfile = ()=>{
+        if(changePic){
+            setChangePic(false)
+        }else{
+            setChangePic(true)
+        }
+    }
+
 
 
     useEffect(() => {
-        fetch("http://localhost:5000/myposts", {
+        fetch(`http://localhost:5000/user/${JSON.parse(localStorage.getItem("user"))._id}`, {
             headers: {
                 Authorization: "Bearer " + localStorage.getItem("jwt")
             }
         })
             .then(res => res.json())
             .then((result) => {
-                setPic(result)
+                console.log(result)
+                setPic(result.post)
+                setUser(result.user)
                 console.log(pic)
             })
     }, [])
@@ -36,15 +50,17 @@ export default function Profile() {
             <div className="profile-frame">
                 {/*Profile pic*/}
                 <div className="profile-pic">
-                    <img src="https://images.unsplash.com/photo-1621342261924-3e2f6c9603f5?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8c3F1YXJlJTIwaW1hZ2V8ZW58MHx8MHx8fDA%3D" alt="" />
+                    <img
+                    onClick={changeProfile} 
+                    src={user.Photo? user.Photo: picLink} alt="" />
                 </div>
                 {/*Profile data*/}
                 <div className="profile-data">
                     <h1>{JSON.parse(localStorage.getItem("user")).name}</h1>
                     <div className="profile-info" style={{ display: "flex" }}>
-                        <p> 10 posts</p>
-                        <p> 10 followers</p>
-                        <p> 10 followings</p>
+                        <p> {pic? pic.length:"0"} Posts</p>
+                        <p> {user.followers? user.followers.length :"0"} Followers </p>
+                        <p> {user.following? user.following.length :"0"} Followings </p>
                     </div>
                 </div>
             </div>
@@ -67,6 +83,10 @@ export default function Profile() {
             {show &&
                 <PostDetail item={posts} toggleDetails = {toggleDetails} />
 
+            }
+            {
+                changePic &&
+                <ProfilePic changeProfile={changeProfile}/>
             }
 
         </div>

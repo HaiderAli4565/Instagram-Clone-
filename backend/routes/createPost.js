@@ -10,7 +10,7 @@ router.get("/allposts", requireLogin, (req, res) => {
     POST.find()
         .populate("postedBy", "_id name Photo")
         .populate("comments.postedBy", "_id name")
-        .populate("postedBy", "_id name")
+        .sort("-createdAt")
         .then(posts => res.json(posts))
         .catch(err => console.log(err))
 })
@@ -37,6 +37,7 @@ router.get("/myposts", requireLogin, (req, res) => {
     POST.find({ postedBy: req.user._id })
         .populate("postedBy", "_id name")
         .populate("comments.postedBy", "_id name")
+        .sort("-createdAt")
         .then(myposts => {
             res.json(myposts)
         })
@@ -89,8 +90,8 @@ router.put("/comment", requireLogin, (req, res) => {
         { $push: { comments: comment } },
         { new: true }
     )
-        .populate("comments.postedBy", "_id name")
-        .populate("postedBy", "_id name")
+        .populate("comments.postedBy", "_id name ")
+        .populate("postedBy", "_id name Photo")
         .then((result) => {
             if (!result) {
                 return res.status(422).json({ error: "No post found with the given ID" });
