@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import logo from "../image/logo.png";
-import "./Navbar.css";
+import "../css/Navbar.css";
 import { Link } from "react-router-dom"; //To avoid refresh
 import { LoginContext } from "../context/LoginContext";
 import { useNavigate } from "react-router-dom";

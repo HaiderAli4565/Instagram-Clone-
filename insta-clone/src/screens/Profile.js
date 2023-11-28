@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import "./Profile.css";
-import PostDetail from "./PostDetail"
-import ProfilePic from "./ProfilePic";
+import "../css/Profile.css";
+import PostDetail from "../components/PostDetail"
+import ProfilePic from "../components/ProfilePic";
 
 export default function Profile() {
     var picLink = "https://cdn-icons-png.flaticon.com/128/847/847969.png"
