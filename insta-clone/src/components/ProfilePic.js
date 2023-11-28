@@ -70,7 +70,10 @@ export default function ProfilePic({ changeProfile }) {
                     <input type="file" ref={hiddenFileInput} accept="image/*" style={{ display: "none" }} onChange={(e) => { setImage(e.target.files[0]) }}></input>
                 </div>
                 <div>
-                    <button className="upload-btn" style={{ color: "#ED4956" }}>Remove Current Photo</button>
+                    <button className="upload-btn" onClick={() => {
+                        setUrl(null)
+                        postPic()
+                    }} style={{ color: "#ED4956" }}>Remove Current Photo</button>
                 </div>
                 <div>
                     <button
