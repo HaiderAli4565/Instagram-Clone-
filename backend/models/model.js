@@ -3,23 +3,23 @@ const { ObjectId } = mongoose.Schema.Types;
 
 const userSchema = new mongoose.Schema({
     name: {
-        type:String,
-        require:true
+        type: String,
+        require: true
     },
     userName: {
         type: String,
-        require:true
+        require: true
     },
     email: {
         type: String,
-        require:true
+        require: true
     },
     password: {
         type: String,
-        require:true
+        require: true
     },
-    Photo:{
-        type:String,
+    Photo: {
+        type: String,
     },
     followers: [{ type: ObjectId, ref: "USER" }],
     following: [{ type: ObjectId, ref: "USER" }]

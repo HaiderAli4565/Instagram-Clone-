@@ -20,8 +20,8 @@ function App() {
   return (
     <BrowserRouter>
       <div className="App">
-        <LoginContext.Provider value={{setUserLogin, setModalOpen}}>
-          <Navbar login = {userLogin} />
+        <LoginContext.Provider value={{ setUserLogin, setModalOpen }}>
+          <Navbar login={userLogin} />
           <Routes>
             <Route path="/" element={<Home />}></Route>
             <Route path="/signup" element={<SignUp />}></Route>
@@ -32,8 +32,8 @@ function App() {
             <Route path="/followingpost" element={<Myfollwingpost />}></Route>
           </Routes>
           <ToastContainer theme="dark" />
-          
-          { modalOpen && <Modal setModalOpen={setModalOpen}></Modal>}
+
+          {modalOpen && <Modal setModalOpen={setModalOpen}></Modal>}
         </LoginContext.Provider>
       </div>
     </BrowserRouter>

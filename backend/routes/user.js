@@ -6,7 +6,6 @@ const USER = mongoose.model("USER");
 const requireLogin = require("../middlewares/requireLogin");
 
 //to get user profile
-
 router.get("/user/:id", (req, res) => {
     USER.findOne({ _id: req.params.id })
         .select("-password")
@@ -69,7 +68,6 @@ router.put("/unfollow", requireLogin, async (req, res) => {
 });
 
 //to upload profile pic
-
 router.put("/uploadProfilePic", requireLogin, (req, res) => {
     USER.findByIdAndUpdate(req.user._id, {
         $set: { Photo: req.body.pic }

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import logo from "../image/logo.png"
 import "../css/SignUp.css";
-import { Link , useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from 'react-toastify';
 
 export default function SignUp() {
@@ -23,11 +23,11 @@ export default function SignUp() {
 
     const postData = () => {
         //checking email
-        if(!emailRegex.test(email)){
+        if (!emailRegex.test(email)) {
             notifyA("Invalid Email")
             return
         }
-        else if(!passRegex.test(password)){
+        else if (!passRegex.test(password)) {
             notifyA("Password must contain atleast 8 charaters including atleast 1 number, 1 upercase and lowercase letter and 1 special character for example #,@,?")
             return
         }
@@ -47,17 +47,17 @@ export default function SignUp() {
             })
         }).then(res => res.json())
             .then(data => {
-                if(data.error){
+                if (data.error) {
                     notifyA(data.error);
-                }else{
+                } else {
                     notifyB(data.message)
                     navigate("/signin")
                 }
-                
+
                 console.log(data)
             })
     }
-
+    {/* Sign Up container*/ }
     return (
         <div className="signup">
             <div className="from-container">
@@ -91,7 +91,6 @@ export default function SignUp() {
                 </div>
                 <div className="form2">
                     Already have an account?
-
                     <Link to="/signin"><span style={{ color: "blue", cursor: "pointer" }}>Sign In</span>
                     </Link>
 

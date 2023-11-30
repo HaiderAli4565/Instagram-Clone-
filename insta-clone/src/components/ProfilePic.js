@@ -20,14 +20,13 @@ export default function ProfilePic({ changeProfile }) {
 
     }
 
+    // saving post in mongodb
     const postPic = () => {
-        // saving post in db
         fetch("http://localhost:5000/uploadProfilePic", {
             method: "put",
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": "Bearer " + localStorage.getItem("jwt")
-
             },
             body: JSON.stringify({
                 pic: url
@@ -40,12 +39,9 @@ export default function ProfilePic({ changeProfile }) {
             })
             .catch(err => console.log(err))
     }
-
-
     const handleClick = () => {
         hiddenFileInput.current.click()
     }
-
     useEffect(() => {
         if (image) {
             postDetails()

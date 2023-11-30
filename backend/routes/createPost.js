@@ -5,7 +5,7 @@ const requireLogin = require("../middlewares/requireLogin");
 const POST = mongoose.model("POST")
 
 
-//Route
+//// API for all posts
 router.get("/allposts", requireLogin, (req, res) => {
     POST.find()
         .populate("postedBy", "_id name Photo")
@@ -15,7 +15,7 @@ router.get("/allposts", requireLogin, (req, res) => {
         .catch(err => console.log(err))
 })
 
-
+// API to create post
 router.post("/createPost", requireLogin, (req, res) => {
     const { body, pic } = req.body;
     console.log(pic)
@@ -44,6 +44,7 @@ router.get("/myposts", requireLogin, (req, res) => {
 
 })
 
+//Api to Like post
 router.put("/like", requireLogin, (req, res) => {
     POST.findByIdAndUpdate(req.body.postId, {
         $push: { likes: req.user._id }
@@ -61,7 +62,7 @@ router.put("/like", requireLogin, (req, res) => {
         });
 });
 
-
+//Api to Unlike post
 router.put("/unlike", requireLogin, (req, res) => {
     POST.findByIdAndUpdate(req.body.postId, {
         $pull: { likes: req.user._id }
@@ -79,7 +80,7 @@ router.put("/unlike", requireLogin, (req, res) => {
         });
 });
 
-
+//Api to Add Comments on post
 router.put("/comment", requireLogin, (req, res) => {
     const comment = {
         comment: req.body.text,

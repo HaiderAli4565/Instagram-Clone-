@@ -48,10 +48,7 @@ export default function UserProfile() {
             })
 
     }
-
-
-
-
+    // Fetch users from mongodb
     useEffect(() => {
         fetch(`http://localhost:5000/user/${userid}`, {
             headers: {

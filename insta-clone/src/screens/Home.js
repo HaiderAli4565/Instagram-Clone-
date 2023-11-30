@@ -34,6 +34,7 @@ export default function Home() {
 
   });
 
+  // Saving likes in database
   const likePost = (id) => {
     fetch("http://localhost:5000/like", {
       method: "put",
@@ -58,6 +59,8 @@ export default function Home() {
         console.log(result);
       });
   };
+
+  // Saving unlikes in database
   const unlikePost = (id) => {
     fetch("http://localhost:5000/unlike", {
       method: "put",
@@ -110,7 +113,7 @@ export default function Home() {
       });
   };
 
-  // to show and hide comments
+  // To show and hide comments
   const toggleComment = (posts) => {
     if (show) {
       setShow(false);
@@ -119,8 +122,6 @@ export default function Home() {
       setItem(posts)
     }
   };
-
-
   return (
     <div className="home">
       {/* card */}
@@ -130,7 +131,7 @@ export default function Home() {
             {/*card header*/}
             <div className="card-header">
               <div className="card-pic">
-                <img src={posts.postedBy.Photo? posts.postedBy.Photo: picLink } alt="" />
+                <img src={posts.postedBy.Photo ? posts.postedBy.Photo : picLink} alt="" />
               </div>
               <h5>
                 <Link to={`/profile/${posts.postedBy._id}`}>
@@ -154,8 +155,6 @@ export default function Home() {
                     </span>
                   )
               }
-
-
               <p>{posts.likes.length} Likes</p>
               <p>{posts.body}</p>
               <p style={{ fontWeight: "bold", cursor: "pointer" }} onClick={() => { toggleComment(posts) }}>

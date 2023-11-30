@@ -4,18 +4,20 @@ import { toast } from 'react-toastify';
 import { useNavigate } from "react-router-dom";
 
 export default function Createpost() {
+    var picLink = "https://cdn-icons-png.flaticon.com/128/847/847969.png"
     const [body, setBody] = useState("")
     const [image, setImage] = useState("")
     const [url, setUrl] = useState("")
+    const [user,setUser] = useState("")
     const navigate = useNavigate()
 
     // toast function
     const notifyA = (msg) => toast.error(msg);
     const notifyB = (msg) => toast.success(msg);
 
+    // saving post in mongodb
     useEffect(() => {
         if (url) {
-            // saving post in db
             fetch("http://localhost:5000/createPost", {
                 method: "post",
                 headers: {
@@ -53,13 +55,7 @@ export default function Createpost() {
         }).then(res => res.json())
             .then(data => setUrl(data.url))
             .catch(err => console.log(err))
-
-
-
     }
-
-
-
     const loadfile = (event) => {
         var output = document.getElementById('output');
         output.src = URL.createObjectURL(event.target.files[0]);
@@ -89,9 +85,9 @@ export default function Createpost() {
             <div className="details">
                 <div className="card-header">
                     <div className="card-pic">
-                        <img src="https://images.unsplash.com/photo-1621342261924-3e2f6c9603f5?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8c3F1YXJlJTIwaW1hZ2V8ZW58MHx8MHx8fDA%3D" alt="" />
+                        <img src={user.Photo ? user.Photo: picLink} alt="" />
                     </div>
-                    <h5>Esha</h5>
+                    <h5>{JSON.parse(localStorage.getItem("user")).name}</h5>
                 </div>
                 <textarea value={body} onChange={(e) => {
                     setBody(e.target.value)

@@ -10,6 +10,7 @@ export default function Navbar({ login }) {
 
   const { setModalOpen } = useContext(LoginContext)
 
+  // For desktop view
   const loginStatus = () => {
     const token = localStorage.getItem("jwt")
     if (login || token) {
@@ -42,6 +43,7 @@ export default function Navbar({ login }) {
     }
   }
 
+// For Mobile View 
   const loginStatusMobile = () => {
     const token = localStorage.getItem("jwt")
     if (login || token) {
@@ -89,11 +91,9 @@ export default function Navbar({ login }) {
       ]
     }
   }
-
-
+  // Nevigate to home page
   return (
     <div className="navbar">
-
       <img id="insta-logo" src={logo} alt="" onClick={() => { nevigate("/") }} />
       <ul className="nav-menu">
         {loginStatus()}

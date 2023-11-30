@@ -18,7 +18,7 @@ export default function SignIn() {
   const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
   const postData = () => {
-    //checking email
+    //to checking email
     if (!emailRegex.test(email)) {
       notifyA("Invalid email")
       return

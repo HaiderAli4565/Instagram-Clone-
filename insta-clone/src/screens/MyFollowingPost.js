@@ -119,8 +119,6 @@ export default function Myfollwingpost() {
       setItem(posts)
     }
   };
-
-
   return (
     <div className="home">
       {/* card */}
@@ -154,8 +152,6 @@ export default function Myfollwingpost() {
                     </span>
                   )
               }
-
-
               <p>{posts.likes.length} Likes</p>
               <p>{posts.body}</p>
               <p style={{ fontWeight: "bold", cursor: "pointer" }} onClick={() => { toggleComment(posts) }}>
@@ -234,10 +230,7 @@ export default function Myfollwingpost() {
           </div>
         </div>
       )
-
-
       }
-
     </div>
   )
 }

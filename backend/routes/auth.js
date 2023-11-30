@@ -13,9 +13,9 @@ router.get('/', (req, res) => {
     res.send("Hello")
 })
 
+// Router for Sign up
 router.post("/signup", (req, res) => {
     const { name, userName, email, password } = req.body; // instead of const name = req.body.name
-
     if (!name || !userName || !email || !password) {
         return res.status(400).json({ error: "Missing required fields" });
     }
@@ -49,6 +49,7 @@ router.post("/signup", (req, res) => {
     })
 })
 
+// Router for sign in
 router.post("/signin", (req, res) => {
     const { email, password } = req.body;
     if (!email || !password) {
@@ -62,9 +63,9 @@ router.post("/signin", (req, res) => {
             if (matchpass) {
                 //return res.status(200).json({ message: "Signed in successfully" })
                 const token = jwt.sign({ _id: savedUser.id }, Jwt_secret)
-                const {_id,name,email,userName} = savedUser
-                res.json({token,user:{_id,name,email,userName}})
-                console.log({token,user:{_id,name,email,userName}})
+                const { _id, name, email, userName } = savedUser
+                res.json({ token, user: { _id, name, email, userName } })
+                console.log({ token, user: { _id, name, email, userName } })
 
             }
             else {
